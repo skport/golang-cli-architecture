@@ -1,0 +1,11 @@
+._*
+*~
+*.swp
+*.tar
+*.zip
+*_bak.*
+*_org.*
+*test.*
+.vscode/
+.DS_Store
+*.code-workspace
