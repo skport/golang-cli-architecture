@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"fetchweb/core/fetcher"
+	"webfetcher/core/fetcher"
 )
 
 func App() {

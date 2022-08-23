@@ -1,4 +1,4 @@
-module fetchweb
+module webfetcher
 
 go 1.18
 

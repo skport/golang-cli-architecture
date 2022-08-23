@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"regexp"
 
-	"fetchweb/core/addr"
+	"webfetcher/core/addr"
 )
 
 type Fetcher struct {

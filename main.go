@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fetchweb/core"
+	"webfetcher/core"
 )
 
 func main() {

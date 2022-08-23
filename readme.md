@@ -1,4 +1,4 @@
-# FetchWeb
+# golang-webfetcher
 
 ## About
 
