@@ -1,4 +1,4 @@
-package fetcher
+package service
 
 import (
 	"bufio"
@@ -6,27 +6,27 @@ import (
 	"net/http"
 	"regexp"
 
-	"webfetcher/core/addr"
+	"webfetcher/core/url"
 )
 
-type Fetcher struct {
-	addr addr.Addr
+type Service struct {
+	url url.Url
 }
 
-func NewFetcher(url string) (*Fetcher, error) {
-	f := new(Fetcher)
+func NewService(addr string) (*Service, error) {
+	s := new(Service)
 
-	f.addr = *addr.NewAddr(url)
-	err := f.addr.Validate()
+	s.url = *url.NewUrl(addr)
+	err := s.url.Validate()
 	if err != nil {
-		return f, err
+		return s, err
 	}
 
-	return f, nil
+	return s, nil
 }
 
-func (f *Fetcher) PrintSummary() error {
-	addr := f.addr.GetAddr()
+func (s *Service) Execute() error {
+	addr := s.url.GetAddr()
 
 	re, err := http.Get(addr)
 	if err != nil {

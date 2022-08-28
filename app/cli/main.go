@@ -1,9 +1,9 @@
 package main
 
 import (
-	"webfetcher/core"
+	"webfetcher/app/cli/cmd"
 )
 
 func main() {
-	core.App()
+	cmd.Execute()
 }

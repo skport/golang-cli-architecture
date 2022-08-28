@@ -1,21 +1,21 @@
-package addr
+package url
 
 import (
 	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/go-ozzo/ozzo-validation/is"
 )
 
-type Addr struct {
+type Url struct {
 	addr string
 }
 
-func NewAddr(addr string) *Addr {
-	a := new(Addr)
-	a.addr = addr
+func NewUrl(url string) *Url {
+	a := new(Url)
+	a.addr = url
 	return a
 }
 
-func (a *Addr) Validate() error {
+func (a *Url) Validate() error {
 	err := validation.Validate(a.addr,
 		validation.Required,
 		validation.Length(10, 100),
@@ -24,6 +24,6 @@ func (a *Addr) Validate() error {
 	return err
 }
 
-func (a *Addr) GetAddr() string {
+func (a *Url) GetAddr() string {
 	return a.addr
 }
