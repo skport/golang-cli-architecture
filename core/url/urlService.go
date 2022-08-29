@@ -1,32 +1,21 @@
-package service
+package url
 
 import (
 	"bufio"
 	"fmt"
 	"net/http"
 	"regexp"
-
-	"webfetcher/core/url"
 )
 
-type Service struct {
-	url url.Url
+type UrlService struct{}
+
+func NewUrlService() *UrlService {
+	i := new(UrlService)
+	return i
 }
 
-func NewService(addr string) (*Service, error) {
-	s := new(Service)
-
-	s.url = *url.NewUrl(addr)
-	err := s.url.Validate()
-	if err != nil {
-		return s, err
-	}
-
-	return s, nil
-}
-
-func (s *Service) Execute() error {
-	addr := s.url.GetAddr()
+func (s *UrlService) Execute(url *Url) error {
+	addr := url.GetAddr()
 
 	re, err := http.Get(addr)
 	if err != nil {

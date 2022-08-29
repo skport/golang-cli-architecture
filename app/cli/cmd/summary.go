@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"webfetcher/core/service"
+	core_url "webfetcher/core/url"
 )
 
 func init() {
@@ -24,15 +24,18 @@ var cobraCmd = &cobra.Command{
 
 		url := args[0]
 
-		// Create Service Object
-		s, err := service.NewService(url)
+		// Create Url Instance
+		u, err := core_url.NewUrl(url)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 
+		// Create UrlService Instance
+		us := core_url.NewUrlService()
+
 		// Show summary of page
-		err = s.Execute()
+		err = us.Execute(u)
 		if err != nil {
 			fmt.Println(err)
 			return

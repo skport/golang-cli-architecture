@@ -9,13 +9,16 @@ type Url struct {
 	addr string
 }
 
-func NewUrl(url string) *Url {
-	a := new(Url)
-	a.addr = url
-	return a
+func NewUrl(url string) (*Url, error) {
+	i := new(Url)
+	i.addr = url
+
+	err := i.validate()
+
+	return i, err
 }
 
-func (a *Url) Validate() error {
+func (a *Url) validate() error {
 	err := validation.Validate(a.addr,
 		validation.Required,
 		validation.Length(10, 100),
