@@ -1,3 +1,5 @@
+// Application : Cmd Summary
+
 package cmd
 
 import (
@@ -34,11 +36,14 @@ var cobraCmd = &cobra.Command{
 		// Create UrlService Instance
 		us := core_url.NewUrlService()
 
-		// Show summary of page
-		err = us.Execute(u)
+		// Fetch summary of page
+		re, err := us.FetchSummary(u)
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
+
+		// Show Summary
+		fmt.Println(re)
 	},
 }

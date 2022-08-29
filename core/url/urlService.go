@@ -1,8 +1,9 @@
+// DomainService : Url
+
 package url
 
 import (
 	"bufio"
-	"fmt"
 	"net/http"
 	"regexp"
 )
@@ -14,12 +15,12 @@ func NewUrlService() *UrlService {
 	return i
 }
 
-func (s *UrlService) Execute(url *Url) error {
+func (s *UrlService) FetchSummary(url *Url) ([]string, error) {
 	addr := url.GetAddr()
 
 	re, err := http.Get(addr)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer re.Body.Close()
 
@@ -27,6 +28,8 @@ func (s *UrlService) Execute(url *Url) error {
 		re := regexp.MustCompile(`<.*?>`)
 		return re.ReplaceAllString(s, "")
 	}
+
+	var summaries []string
 
 	// Read the body line by line
 	bf := bufio.NewScanner(re.Body)
@@ -37,17 +40,17 @@ func (s *UrlService) Execute(url *Url) error {
 		// Extract <title>
 		if rgTitle.MatchString(line) {
 			s := rgTitle.FindString(line)
-			fmt.Println("title :", funcClearTag(s))
+			summaries = append(summaries, "title :"+funcClearTag(s))
 		}
 		// Extract <h1>
 		if rgH1.MatchString(line) {
 			s := rgH1.FindString(line)
-			fmt.Println("H1 :", funcClearTag(s))
+			summaries = append(summaries, "H1 :"+funcClearTag(s))
 		}
 	}
 	if err := bf.Err(); err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return summaries, nil
 }
