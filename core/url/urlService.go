@@ -8,15 +8,18 @@ import (
 	"regexp"
 )
 
-type UrlService struct{}
+type UrlService struct{
+	url *Url
+}
 
-func NewUrlService() *UrlService {
+func NewUrlService(url *Url) *UrlService {
 	i := new(UrlService)
+	i.url = url
 	return i
 }
 
-func (s *UrlService) FetchSummary(url *Url) ([]string, error) {
-	addr := url.GetAddr()
+func (us *UrlService) FetchSummary() ([]string, error) {
+	addr := us.url.Addr()
 
 	re, err := http.Get(addr)
 	if err != nil {
