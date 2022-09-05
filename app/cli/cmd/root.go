@@ -1,3 +1,5 @@
+// Package cmd is command controller with cobra.
+
 package cmd
 
 import (
@@ -5,7 +7,6 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	//"github.com/spf13/viper"
 )
 
 var rootCmd = &cobra.Command{

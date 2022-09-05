@@ -1,4 +1,4 @@
-// Application : Cmd Summary
+// Application Layer : Cmd Summary
 
 package cmd
 
@@ -11,39 +11,41 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(cobraCmd)
+	rootCmd.AddCommand(SummaryCmd)
 }
 
-var cobraCmd = &cobra.Command{
-	Use:   "summary",
+var SummaryCmd = &cobra.Command{
+	Use:   "summary [URL]",
 	Short: "Print a summary from a web",
 	Long:  `Print a summary from a web`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) < 1 {
-			fmt.Println("invalid URL specified")
-			return
-		}
+	Run:   SummaryCmdRun,
+}
 
-		url := args[0]
+func SummaryCmdRun(cmd *cobra.Command, args []string) {
+	if len(args) < 1 {
+		fmt.Println("invalid URL specified")
+		return
+	}
 
-		// Create Url Instance
-		u, err := coreUrl.NewUrl(url)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+	url := args[0]
 
-		// Create UrlService Instance
-		us := coreUrl.NewUrlService(u)
+	// Create Url Instance
+	u, err := coreUrl.NewUrl(url)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-		// Fetch summary of page
-		re, err := us.FetchSummary()
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+	// Create UrlService Instance
+	us := coreUrl.NewUrlService(u)
 
-		// Show Summary
-		fmt.Println(re)
-	},
+	// Fetch summary of page
+	re, err := us.FetchSummary()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// Show Summary
+	fmt.Println(re)
 }
