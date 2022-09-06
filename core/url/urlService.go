@@ -1,14 +1,13 @@
-// DomainService : Url
-
 package url
 
 import (
-	"bufio"
 	"net/http"
 	"regexp"
+	"io"
 )
 
-type UrlService struct{
+// The struct UrlService is a DomainService.
+type UrlService struct {
 	url *Url
 }
 
@@ -27,32 +26,31 @@ func (us *UrlService) FetchSummary() ([]string, error) {
 	}
 	defer re.Body.Close()
 
+	body, err := io.ReadAll(re.Body)
+	if err != nil {
+		return nil, err
+	}
+	bodyStr := string(body)
+
+	var summaries []string
+
 	funcClearTag := func(s string) string {
 		re := regexp.MustCompile(`<.*?>`)
 		return re.ReplaceAllString(s, "")
 	}
 
-	var summaries []string
-
-	// Read the body line by line
-	bf := bufio.NewScanner(re.Body)
+	// Find <title>
 	rgTitle := regexp.MustCompile(`(?i)<\s*title.*>.+<\s*/title\s*>`)
-	rgH1 := regexp.MustCompile(`(?i)<\s*h1.*>.+<\s*/h1\s*>`)
-	for bf.Scan() {
-		line := bf.Text()
-		// Extract <title>
-		if rgTitle.MatchString(line) {
-			s := rgTitle.FindString(line)
-			summaries = append(summaries, "title :"+funcClearTag(s))
-		}
-		// Extract <h1>
-		if rgH1.MatchString(line) {
-			s := rgH1.FindString(line)
-			summaries = append(summaries, "H1 :"+funcClearTag(s))
-		}
+	if rgTitle.MatchString(bodyStr) {
+		s := rgTitle.FindString(bodyStr)
+		summaries = append(summaries, "title :"+funcClearTag(s))
 	}
-	if err := bf.Err(); err != nil {
-		return nil, err
+
+	// Find <h1>
+	rgH1 := regexp.MustCompile(`(?i)<\s*h1.*>.+<\s*/h1\s*>`)
+	if rgH1.MatchString(bodyStr) {
+		s := rgH1.FindString(bodyStr)
+		summaries = append(summaries, "H1 :"+funcClearTag(s))
 	}
 
 	return summaries, nil

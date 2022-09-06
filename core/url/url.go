@@ -1,4 +1,4 @@
-// ValueObject : Url
+// Package url manages and manipulates URLs.
 
 package url
 
@@ -7,6 +7,7 @@ import (
 	"github.com/go-ozzo/ozzo-validation/is"
 )
 
+// The struct Url is a value object.
 type Url struct {
 	addr string
 }
