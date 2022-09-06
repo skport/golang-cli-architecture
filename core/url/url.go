@@ -1,5 +1,4 @@
 // Package url manages and manipulates URLs.
-
 package url
 
 import (

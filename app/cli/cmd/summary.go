@@ -1,13 +1,13 @@
-// Application Layer : Cmd Summary
+// Controller Layer : Cmd Summary
 
 package cmd
 
 import (
 	"fmt"
 
-	"github.com/spf13/cobra"
+	"webfetcher/core/app"
 
-	coreUrl "webfetcher/core/url"
+	"github.com/spf13/cobra"
 )
 
 func init() {
@@ -27,25 +27,7 @@ func SummaryCmdRun(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	url := args[0]
-
-	// Create Url Instance
-	u, err := coreUrl.NewUrl(url)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	// Create UrlService Instance
-	us := coreUrl.NewUrlService(u)
-
-	// Fetch summary of page
-	re, err := us.FetchSummary()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	// Show Summary
-	fmt.Println(re)
+	// Application Logic
+	a := app.NewApp()
+	a.CmdSummary(args)
 }
