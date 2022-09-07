@@ -9,20 +9,15 @@ import (
 	"webfetcher/core/url"
 )
 
-type App struct{
+type App struct {
 	urlProvider url.Provider
 }
 
-func NewApp() *App {
+func NewApp(urlProvider url.Provider) *App {
 	a := new(App)
-	a.init()
+	a.urlProvider = urlProvider
 	return a
 }
-
-func (a *App) init() {
-	// Select url provider to use
-	a.urlProvider = url.NewWebProvider()
-} 
 
 func (a *App) CmdSummary(args []string) {
 	addr := args[0]
