@@ -1,44 +1,37 @@
+// Controller Layer : Cmd Summary
+
 package cmd
 
 import (
 	"fmt"
 
-	"github.com/spf13/cobra"
+	"webfetcher/core/app"
+	"webfetcher/core/url"
 
-	core_url "webfetcher/core/url"
+	"github.com/spf13/cobra"
 )
 
 func init() {
-	rootCmd.AddCommand(cobraCmd)
+	rootCmd.AddCommand(SummaryCmd)
 }
 
-var cobraCmd = &cobra.Command{
-	Use:   "summary",
+var SummaryCmd = &cobra.Command{
+	Use:   "summary [URL]",
 	Short: "Print a summary from a web",
 	Long:  `Print a summary from a web`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) < 1 {
-			fmt.Println("invalid URL specified")
-			return
-		}
+	Run:   SummaryCmdRun,
+}
 
-		url := args[0]
+func SummaryCmdRun(cmd *cobra.Command, args []string) {
+	if len(args) < 1 {
+		fmt.Println("invalid URL specified")
+		return
+	}
 
-		// Create Url Instance
-		u, err := core_url.NewUrl(url)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+	// Select Url Provider
+	urlProvider := url.NewWebProvider()
 
-		// Create UrlService Instance
-		us := core_url.NewUrlService()
-
-		// Show summary of page
-		err = us.Execute(u)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-	},
+	// Application Logic
+	a := app.NewApp(urlProvider) // DI
+	a.CmdSummary(args)
 }

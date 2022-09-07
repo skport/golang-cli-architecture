@@ -1,3 +1,4 @@
+// Package url manages and manipulates URLs.
 package url
 
 import (
@@ -5,6 +6,7 @@ import (
 	"github.com/go-ozzo/ozzo-validation/is"
 )
 
+// The struct Url is a value object.
 type Url struct {
 	addr string
 }
@@ -18,8 +20,8 @@ func NewUrl(url string) (*Url, error) {
 	return i, err
 }
 
-func (a *Url) validate() error {
-	err := validation.Validate(a.addr,
+func (u *Url) validate() error {
+	err := validation.Validate(u.addr,
 		validation.Required,
 		validation.Length(10, 100),
 		is.URL,
@@ -27,6 +29,6 @@ func (a *Url) validate() error {
 	return err
 }
 
-func (a *Url) GetAddr() string {
-	return a.addr
+func (u *Url) Addr() string {
+	return u.addr
 }

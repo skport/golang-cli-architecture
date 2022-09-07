@@ -13,7 +13,7 @@ Move to root directory and run go cmd.
 Basic:
 
 ```Shell
-go run app/cli/main.go summary [Target URL]
+go run ./app/cli/main.go summary [Target URL]
 ```
 
 Response:
@@ -21,3 +21,10 @@ Response:
 ```
 title : [string]
 H1 : [string]
+```
+
+## Test Commands
+
+```
+go test ./app/cli/cmd -v
+```
