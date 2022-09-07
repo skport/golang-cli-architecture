@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"regexp"
 
-	coreUrl "webfetcher/core/url"
+	"webfetcher/core/url"
 )
 
 type App struct{
-	urlProvider coreUrl.UrlProvider
+	urlProvider url.Provider
 }
 
 func NewApp() *App {
@@ -21,20 +21,20 @@ func NewApp() *App {
 
 func (a *App) init() {
 	// Select url provider to use
-	a.urlProvider = coreUrl.NewUrlWebProvider()
+	a.urlProvider = url.NewWebProvider()
 } 
 
 func (a *App) CmdSummary(args []string) {
-	url := args[0]
+	addr := args[0]
 
 	// Create Url Instance
-	u, err := coreUrl.NewUrl(url)
+	u, err := url.NewUrl(addr)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	// Create Url Provider & Load Body
+	// Load Body from Url
 	body, err := a.urlProvider.ReadBody(u)
 	if err != nil {
 		fmt.Println(err)

@@ -6,17 +6,17 @@ import (
 )
 
 // Interface class providing data on URLs
-type UrlProvider interface {
+type Provider interface {
 	ReadBody(url *Url) (string, error)
 }
 
-type UrlWebProvider struct{}
+type WebProvider struct{}
 
-func NewUrlWebProvider() *UrlWebProvider {
-	return new(UrlWebProvider)
+func NewWebProvider() *WebProvider {
+	return new(WebProvider)
 }
 
-func (p *UrlWebProvider) ReadBody(url *Url) (string, error) {
+func (p *WebProvider) ReadBody(url *Url) (string, error) {
 	addr := url.Addr()
 
 	r, err := http.Get(addr)
