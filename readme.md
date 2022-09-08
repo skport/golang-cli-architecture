@@ -17,7 +17,7 @@ This program are published as a record of my Golang learning.
 - Environment Variables
   - [GoDotEnv](https://github.com/joho/godotenv)
 - DI (Dependency Injection)
-  - [dig](https://github.com/uber-go/digs)
+  - [dig](https://github.com/uber-go/dig)
 - Validator
   - [ozzo-validation](https://github.com/go-ozzo/ozzo-validation)
 
