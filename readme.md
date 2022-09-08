@@ -89,16 +89,21 @@ APP_ENV=production
 
 If nothing is specified, Switch to development env.
 
+## Installation
+
+Create go.sum:
+```Shell
+go mod tidy
+```
+
 ## Usage
 
 Basic:
-
 ```Shell
 go run ./app/cli/main.go summary [Target URL]
 ```
 
 Response:
-
 ```Shell
 title : [string]
 H1 : [string]
