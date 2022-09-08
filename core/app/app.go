@@ -13,9 +13,9 @@ type App struct {
 	urlProvider url.Provider
 }
 
-func NewApp(urlProvider url.Provider) *App {
+func NewApp(p url.Provider) *App {
 	a := new(App)
-	a.urlProvider = urlProvider
+	a.urlProvider = p
 	return a
 }
 

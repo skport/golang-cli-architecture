@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-// Interface class providing data on URLs
+// Interface class providing data on URLs.
 type Provider interface {
 	ReadBody(url *Url) (string, error)
 }
 
 type WebProvider struct{}
 
-func NewWebProvider() *WebProvider {
+func NewWebProvider() Provider {
 	return new(WebProvider)
 }
 

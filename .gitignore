@@ -8,3 +8,5 @@
 .vscode/
 .DS_Store
 *.code-workspace
+
+go.sum

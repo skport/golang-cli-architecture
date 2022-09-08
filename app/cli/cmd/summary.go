@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	"webfetcher/core/app"
-	"webfetcher/core/url"
 
 	"github.com/spf13/cobra"
 )
@@ -28,10 +27,11 @@ func SummaryCmdRun(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	// Select Url Provider
-	urlProvider := url.NewWebProvider()
-
 	// Application Logic
-	a := app.NewApp(urlProvider) // DI
-	a.CmdSummary(args)
+	// Create app Instance via DI Container
+	diContainer.Invoke(
+		func(a *app.App) {
+			a.CmdSummary(args)
+		},
+	)
 }
