@@ -1,7 +1,5 @@
 # golang-webfetcher
 
-## About
-
 The main objective of this repository is to compose a versatile architecture.
 
 It's a simple Cobra CLI application and displays a summary of the target website.
@@ -14,7 +12,7 @@ This is published as a record of my Golang learning.
 
 - Modern CLI - [cobra](https://github.com/spf13/cobra)
 - Environment Variables - [GoDotEnv](https://github.com/joho/godotenv)
-- DI (Dependency Injection) - [dig](https://github.com/uber-go/dig)
+- DI (Dependency Injection) Container - [dig](https://github.com/uber-go/dig)
 - Validator - [ozzo-validation](https://github.com/go-ozzo/ozzo-validation)
 
 Detail : go.mod
@@ -40,6 +38,8 @@ H1 : [string]
 
 ## Architecture
 
+Keeping the nature of the Cobra code that exposes the cmd as a variable, adding application logic in a form that is easy to separate.
+
 ```mermaid
 flowchart LR
     subgraph Controller
@@ -60,9 +60,36 @@ flowchart LR
     Domain --- DataStore
 ```
 
-I keeped the nature of the Cobra code that exposes the cmd as a variable, adding application logic in a form that is easy to separate.
+### Class Diagram (core/)
 
-The application depends on a data store, but uses a DI container to ease changing.
+```mermaid
+classDiagram
+  Url -- App
+  Url -- Provider
+  Provider -- App
+  Provider <|.. WebProvider : Realization
+  Provider <|.. InMemDummyProvider : Realization
+  class App {
+    +CmdSummary()
+  }
+  class Url {
+    -validate()
+  }
+  class Provider
+  <<interface>> Provider
+  Provider : +ReadBody()
+  class WebProvider {
+    +ReadBody()
+  }
+  class InMemDummyProvider {
+    +ReadBody()
+  }
+```
+
+
+### Switching easily data stores
+
+The application depends on a data store, but uses a DI container to ease changing. In the case of this program, the data store is the Web, but a database is typically used.
 
 Initialize DI Container ([app/cli/cmd/root.go](https://github.com/skport/golang-webfetcher/blob/b139e9b4ef3555d7007a622e2b364f25ff0e81fa/app/cli/cmd/root.go#L38)):
 ```go
