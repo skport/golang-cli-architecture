@@ -17,7 +17,26 @@ This is published as a record of my Golang learning.
 - DI (Dependency Injection) - [dig](https://github.com/uber-go/dig)
 - Validator - [ozzo-validation](https://github.com/go-ozzo/ozzo-validation)
 
-Detail : go.mod 
+Detail : go.mod
+
+## Installation
+
+Create go.sum:
+```Shell
+go mod tidy
+```
+
+## Usage
+
+```Shell
+go run ./app/cli/main.go summary [Target URL]
+```
+
+Response:
+```Shell
+title : [string]
+H1 : [string]
+```
 
 ## Architecture
 
@@ -87,26 +106,6 @@ APP_ENV=production
 ```
 
 If nothing is specified, Switch to development env.
-
-## Installation
-
-Create go.sum:
-```Shell
-go mod tidy
-```
-
-## Usage
-
-Basic:
-```Shell
-go run ./app/cli/main.go summary [Target URL]
-```
-
-Response:
-```Shell
-title : [string]
-H1 : [string]
-```
 
 ## Testing
 
