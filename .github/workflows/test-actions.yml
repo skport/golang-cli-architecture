@@ -1,0 +1,21 @@
+name: go-test-actions
+run-name: ${{ github.actor }} GitHub Actions
+
+on: [push]
+
+jobs:
+  go-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+
+      - name: Build
+        run: go build -v ./app/cli/cmd/
+
+      - name: Test
+        run: go test -v ./app/cli/cmd/
