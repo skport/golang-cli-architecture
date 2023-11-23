@@ -1,5 +1,5 @@
 # golang-cli-architecture
-[![](https://img.shields.io/github/go-mod/go-version/golang/go/release-branch.go1.18?filename=src%2Fgo.mod&label=GO%20VERSION&style=for-the-badge&logo=appveyor)](https://github.com/golang/go/releases/tag/go1.18)
+[![](https://img.shields.io/github/go-mod/go-version/golang/go/release-branch.go1.21?filename=src%2Fgo.mod&label=GO%20VERSION&style=for-the-badge&logo=appveyor)](https://github.com/golang/go/releases/tag/go1.21)
 
 The main objective of this repository is to compose a versatile architecture.
 
